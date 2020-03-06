@@ -44,6 +44,19 @@ return [
             ],
         ],
         */
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                    'host' => 'smtp.gmail.com',
+                    'username' => 'dota2771@gmail.com',
+                    'password' => 'Skilletv2',
+                    'port' => '587',
+                    'encryption' => 'tls',
+                    'streamOptions' => [ 'ssl' => [ 'allow_self_signed' => true, 'verify_peer' => false, 'verify_peer_name' => false, ], ]
+            ],
+        ],
     ],
     'params' => $params,
 ];

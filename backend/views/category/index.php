@@ -9,7 +9,7 @@
     <label for="name">Category name</label>
     <input type="text" class="form-control" id="name" name="name">
   </div>
-  <button type="submit" class="btn btn-success">Submit</button>
+  <button type="submit" class="btn btn-success">Add</button>
 </form>
 
 <?php

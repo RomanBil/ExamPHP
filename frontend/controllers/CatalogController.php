@@ -4,6 +4,9 @@ namespace frontend\controllers;
 use Yii;
 use yii\web\Controller;
 use frontend\models\Catalog;
+use frontend\models\Complaint;
+
+use yii\web\UploadedFile;
 
 class CatalogController extends Controller
 {
@@ -56,11 +59,11 @@ class CatalogController extends Controller
 
             $model->category = $fromData["category"];
 
-            $upload_file=$fromData["sound"];
-            $folder="frontend/sound/";
-            move_uploaded_file($fromData["sound"], $folder.$fromData["sound"]);
+            // $upload_file=$fromData["sound"];
+            // $folder="frontend/sound/";
+            // move_uploaded_file($fromData["sound"], $folder.$fromData["sound"]);
 
-            $model->path=$folder.$fromData["sound"];
+            // $model->path=$folder.$fromData["sound"];
             
 
             $_FILES["sound"]["name"]=$fromData["sound"];
@@ -80,6 +83,36 @@ class CatalogController extends Controller
         return $this->render('upload',[
             'model' => $model,
             'categories' => $model->getListCategory()
+        ]);
+    }
+
+    public function actionComplaint(){
+        $id = 0;
+
+        $model= new Complaint();
+
+        if(Yii::$app->request->isGet){
+            $fromData = Yii::$app->request->get();
+
+            $id=$fromData["id"];
+        }
+
+        if(Yii::$app->request->isPost){
+            $fromData = Yii::$app->request->post();
+
+            $model->description = $fromData["description"];
+
+            $model->soundid = $fromData["id"];
+
+            $id=$fromData["id"];
+
+            if($model->validate() && $model->save()){
+                Yii::$app->session->setFlash('success','Complaint add complited!');
+            }
+        }
+
+        return $this->render('complaint',[
+            'id' => $id
         ]);
     }
 

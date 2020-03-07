@@ -1,6 +1,8 @@
 <?php
     if($model->getErrors()){
-        print_r($model->getErrors());
+        foreach($model->getErrors()['name'] as $error){
+            echo$error;
+        }
     }
 ?>
 

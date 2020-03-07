@@ -1,3 +1,26 @@
+<?php
+  if($model->getErrors()){
+    foreach($model->getErrors()['username'] as $error){
+        echo$error;
+    }
+    foreach($model->getErrors()['password'] as $error){
+      echo$error;
+    }
+    foreach($model->getErrors()['password2'] as $error){
+      echo$error;
+    }
+    foreach($model->getErrors()['email'] as $error){
+      echo$error;
+    }
+    foreach($model->getErrors()['role'] as $error){
+      echo$error;
+    }
+    foreach($model->getErrors()['status'] as $error){
+      echo$error;
+    }
+  }
+?>
+
 <form method="POST">
   <div class="form-group">
     <label for="username">User name</label>

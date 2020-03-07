@@ -1,3 +1,17 @@
+<?php
+  if($model->getErrors()){
+    foreach($model->getErrors()['name'] as $error){
+        echo$error;
+    }
+    foreach($model->getErrors()['category'] as $error){
+      echo$error;
+    }
+    foreach($model->getErrors()['path'] as $error){
+      echo$error;
+    }
+  }
+?>
+
 <form method="GET" enctype="multipart/form-data">
   <div class="form-group">
     <label for="name">Sound name</label>

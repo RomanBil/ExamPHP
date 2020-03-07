@@ -75,15 +75,15 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+        if ($model->load(Yii::$app->request->post()) && $model->login() && $model->idrole==2) {
             return $this->goBack();
-        } else {
-            $model->password = '';
+        } 
 
-            return $this->render('login', [
-                'model' => $model,
-            ]);
-        }
+        $model->password = '';
+
+        return $this->render('login', [
+            'model' => $model,
+        ]);
     }
 
     /**

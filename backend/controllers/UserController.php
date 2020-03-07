@@ -36,6 +36,19 @@ class UserController extends Controller
             ]);
     }
 
+    public function actionUsers(){
+        $model = new User();
+
+        return $this->render('users',[
+            'users' => $model->getListUsers(),
+            'statuses' => $model->getListStatus()
+        ]);
+    }
+
+    public function actionUpdate(){
+        return $this->render('update');
+    }
+
     public function beforeAction($action)
     {
         if (in_array($action->id, ['index'])) {

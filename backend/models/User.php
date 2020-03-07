@@ -6,6 +6,7 @@ use yii\base\Model;
 
 class User extends Model
 {
+    public $id;
     public $username;
     public $password;
     public $password2;
@@ -41,6 +42,16 @@ class User extends Model
 
     public function getListStatus(){
         $sql = "SELECT * FROM statususer";
+        return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    public function getListUsers(){
+        $sql = "SELECT * FROM user";
+        return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    public function updateUserById($id,$idstat){
+        $sql = "UPDATE user set statusid = $idstat where id= $id";
         return Yii::$app->db->createCommand($sql)->queryAll();
     }
 }

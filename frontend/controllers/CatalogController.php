@@ -45,4 +45,49 @@ class CatalogController extends Controller
             'sound' => $sound[0]
         ]);
     }
+
+    public function actionUpload(){
+        $model = new Catalog();
+
+        if(Yii::$app->request->isGet){
+            $fromData = Yii::$app->request->get();
+
+            $model->name = $fromData["name"];
+
+            $model->category = $fromData["category"];
+
+            $upload_file=$fromData["sound"];
+            $folder="frontend/sound/";
+            move_uploaded_file($fromData["sound"], $folder.$fromData["sound"]);
+
+            $model->path=$folder.$fromData["sound"];
+            
+
+            $_FILES["sound"]["name"]=$fromData["sound"];
+            $_FILES["sound"]["tmp_name"]=$fromData["sound"];
+
+            $upload_file=$_FILES["sound"]["name"];
+            $folder="frontend/sound/";
+            move_uploaded_file($_FILES["sound"]["tmp_name"], $folder.$upload_file);
+
+            $model->path=$folder.$upload_file;
+
+            if($model->validate() && $model->save()){
+                Yii::$app->session->setFlash('success','Sound add complited!');
+            }
+        }
+
+        return $this->render('upload',[
+            'model' => $model,
+            'categories' => $model->getListCategory()
+        ]);
+    }
+
+    public function beforeAction($action)
+    {
+        if (in_array($action->id, ['index'])) {
+            $this->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
+    }
 }

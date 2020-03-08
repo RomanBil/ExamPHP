@@ -1,15 +1,17 @@
 <?php
-  if($model->getErrors()){
-    foreach($model->getErrors()['name'] as $error){
-        echo$error;
-    }
-    foreach($model->getErrors()['category'] as $error){
-      echo$error;
-    }
-    foreach($model->getErrors()['path'] as $error){
-      echo$error;
-    }
-  }
+  // if($model->getErrors()){
+  //   foreach($model->getErrors()['name'] as $error){
+  //       echo$error;
+  //   }
+  //   foreach($model->getErrors()['category'] as $error){
+  //     echo$error;
+  //   }
+  //   foreach($model->getErrors()['path'] as $error){
+  //     echo$error;
+  //   }
+  // }
+
+  print_r($_SESSION["advanced-frontend"]);
 ?>
 
 <form method="GET" enctype="multipart/form-data">

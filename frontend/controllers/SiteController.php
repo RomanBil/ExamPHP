@@ -84,6 +84,23 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        if(Yii::$app->request->isPost){
+            if(!$_POST["g-recaptcha-response"]){
+               // exit("recaptcha is empty");
+            }
+
+            $url = 'https://www.google.com/recaptcha/api/siteverify';
+            $key = '6Lcno98UAAAAANg7qgFUA007US_KzULNdzjJYJtz';
+            // key2 6Lcwo98UAAAAANVNdczUMhI87WPXkQsNV-X4lCoJ
+            $query = $url.'?secret='.$key.'&response='.$_POST["g-recaptcha-response"].'&remopeid='.$_SERVER['REMOTE_ADDR'];
+     
+            $data = json_decode(file_get_contents($query));
+
+            if($data->success==false){
+               // exit("captcha error");
+            }
+        }
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -153,9 +170,34 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
+        if(Yii::$app->request->isPost){
+            if(!$_POST["g-recaptcha-response"]){
+                exit("recaptcha is empty");
+            }
+
+            $url = 'https://www.google.com/recaptcha/api/siteverify';
+            $key = '6Lcno98UAAAAANg7qgFUA007US_KzULNdzjJYJtz';
+            // key2 6Lcwo98UAAAAANVNdczUMhI87WPXkQsNV-X4lCoJ
+            $query = $url.'?secret='.$key.'&response='.$_POST["g-recaptcha-response"].'&remopeid='.$_SERVER['REMOTE_ADDR'];
+        
+            $data = json_decode(file_get_contents($query));
+
+            if($data->success==false){
+                exit("captcha error");
+            }
+
+            $fromData = Yii::$app->request->post();
+
+            $model->username = $fromData["username"];
+
+            $model->email = $fromData["email"];
+
+            $model->password = $fromData["password"];
+
+            if ($model->signup()) {
+                Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+                return $this->goHome();
+            }
         }
 
         return $this->render('signup', [
@@ -256,5 +298,13 @@ class SiteController extends Controller
         return $this->render('resendVerificationEmail', [
             'model' => $model
         ]);
+    }
+
+    public function beforeAction($action)
+    {
+        if (in_array($action->id, ['index'])) {
+            $this->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
     }
 }

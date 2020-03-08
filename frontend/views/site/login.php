@@ -31,6 +31,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     Need new verification email? <?= Html::a('Resend', ['site/resend-verification-email']) ?>
                 </div>
 
+                <div class="g-recaptcha" data-sitekey="6Lcno98UAAAAAOd3D9lkEZPu2b0fvrkJw68SLBEu"></div>
+
+                <!-- key2 6Lcwo98UAAAAAPBXWptXiD5S5kwwqro3OuXcim9j -->
+
                 <div class="form-group">
                     <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
@@ -39,3 +43,5 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+
+<script src="https://www.google.com/recaptcha/api.js"></script>

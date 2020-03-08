@@ -17,19 +17,28 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
-
-                <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-
-                <?= $form->field($model, 'email') ?>
-
-                <?= $form->field($model, 'password')->passwordInput() ?>
-
+            <form method="POST">
                 <div class="form-group">
-                    <?= Html::submitButton('Signup', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                    <label for="username">User name</label>
+                    <input type="text" class="form-control" id="username" name="username">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
                 </div>
 
-            <?php ActiveForm::end(); ?>
+                <div class="g-recaptcha" data-sitekey="6Lcno98UAAAAAOd3D9lkEZPu2b0fvrkJw68SLBEu"></div>
+
+                <!-- key2 6Lcwo98UAAAAAPBXWptXiD5S5kwwqro3OuXcim9j -->
+
+                <input type="submit" class="btn btn-success" value="Signup">
+            </form>
         </div>
     </div>
 </div>
+
+<script src="https://www.google.com/recaptcha/api.js"></script>

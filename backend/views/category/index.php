@@ -1,18 +1,23 @@
 <?php
-    if($model->getErrors()){
-        foreach($model->getErrors()['name'] as $error){
-            echo$error;
-        }
-    }
+    use yii\helpers\Html;
+    use yii\bootstrap\ActiveForm;
 ?>
 
-<form method="POST">
+<!-- <form method="POST">
   <div class="form-group">
     <label for="name">Category name</label>
     <input type="text" class="form-control" id="name" name="name">
   </div>
   <button type="submit" class="btn btn-success">Add</button>
-</form>
+</form> -->
+
+<?php $form = ActiveForm::begin(); ?>
+
+    <?php echo $form->field($model,'name') ?>
+
+    <?php echo Html::submitButton('add',['class'=>'btn btn-primary']) ?>
+
+<?php ActiveForm::end(); ?>
 
 <?php
     if($categories){

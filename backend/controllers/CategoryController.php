@@ -2,13 +2,12 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\web\Controller;
 use backend\models\CategoryForm;
 
 /**
  * Category controller
  */
-class CategoryController extends Controller
+class CategoryController extends \yii\web\Controller
 {
     /**
      * Displays homepage.
@@ -18,25 +17,45 @@ class CategoryController extends Controller
     public function actionIndex()
     {
         $model = new CategoryForm();
+        
+        if($model->load(Yii::$app->request->post()) && $model->save()){
+            //var_dump($model->attributes);die;
+            
+            Yii::$app->session->setFlash('success','Added!');
 
-        //print_r($model->getListCategory());die;
+            return $this->refresh();
 
-        if(Yii::$app->request->isPost){
-            $fromData = Yii::$app->request->post();
-
-            $model->name = $fromData["name"];
-
-            if($model->validate() && $model->save()){
-                Yii::$app->session->setFlash('success','Category add complited!');
-            }
+            //return $this->redirect('book/index');
         }
+        // print_r(Yii::$app->request->post());
+        // echo"<br><br><pre>";
+        // var_dump($model);
+        // echo"</pre>";
+
+
+        //var_dump($model->errors);die;
 
         return $this->render('index',[
-            'model' => $model,
-            'categories' => $model->getListCategory()
-            ]);
+                'model' => $model,
+                'categories' => $model->getListCategory()
+                ]);
 
-        // return $this->render('index');
+        // $model = new CategoryForm();
+
+        // if(Yii::$app->request->isPost){
+        //     $fromData = Yii::$app->request->post();
+
+        //     $model->name = $fromData["name"];
+
+        //     if($model->validate() && $model->save()){
+        //         Yii::$app->session->setFlash('success','Category add complited!');
+        //     }
+        // }
+
+        // return $this->render('index',[
+        //     'model' => $model,
+        //     'categories' => $model->getListCategory()
+        //     ]);
     }
 
     public function actionDelete(){

@@ -3,23 +3,27 @@
 namespace backend\models;
 
 use Yii;
-use yii\base\Model;
+use yii\db\ActiveRecord;
 
-class CategoryForm extends Model
+class CategoryForm extends ActiveRecord
 {
     public $name;
+
+    public static function tableName(){
+        return '{{categorysound}}';
+    }
 
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name','id'], 'required'],
         ];
     }
 
-    public function save(){
-        $sql = "INSERT INTO categorysound (id,name) VALUES(null,'$this->name')";
-        return Yii::$app->db->createCommand($sql)->execute();
-    }
+    // public function save(){
+    //     $sql = "INSERT INTO categorysound (id,name) VALUES(null,'$this->name')";
+    //     return Yii::$app->db->createCommand($sql)->execute();
+    // }
 
     public function getListCategory(){
         $sql = "SELECT * FROM categorysound";

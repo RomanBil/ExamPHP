@@ -31,9 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     <input type="password" class="form-control" id="password" name="password">
                 </div>
 
-                <div class="g-recaptcha" data-sitekey="6Lcno98UAAAAAOd3D9lkEZPu2b0fvrkJw68SLBEu"></div>
-
-                <!-- key2 6Lcwo98UAAAAAPBXWptXiD5S5kwwqro3OuXcim9j -->
+                <div class="g-recaptcha" data-sitekey="6LduSOAUAAAAANpVz1eS5M-dcmfkIHzqgU3Ufg4F"></div>
+                <!-- key v2 6LduSOAUAAAAANpVz1eS5M-dcmfkIHzqgU3Ufg4F -->
+                <!-- key v3 6Lcwo98UAAAAAPBXWptXiD5S5kwwqro3OuXcim9j -->
 
                 <input type="submit" class="btn btn-success" value="Signup">
             </form>

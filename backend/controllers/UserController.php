@@ -30,9 +30,7 @@ class UserController extends Controller
         }
 
         return $this->render('index',[
-            'model' => $model,
-            'roles' => $model->getListRoles(),
-            'statuses' => $model->getListStatus()
+            'model' => $model
             ]);
     }
 

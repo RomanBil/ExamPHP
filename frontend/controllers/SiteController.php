@@ -86,18 +86,20 @@ class SiteController extends Controller
     {
         if(Yii::$app->request->isPost){
             if(!$_POST["g-recaptcha-response"]){
-               // exit("recaptcha is empty");
+               exit("recaptcha is empty");
             }
 
             $url = 'https://www.google.com/recaptcha/api/siteverify';
-            $key = '6Lcno98UAAAAANg7qgFUA007US_KzULNdzjJYJtz';
-            // key2 6Lcwo98UAAAAANVNdczUMhI87WPXkQsNV-X4lCoJ
+            $key = '6LduSOAUAAAAANv4674bcbOyBe3P6wdbErUUcQll';
+            // key v2 6LduSOAUAAAAANv4674bcbOyBe3P6wdbErUUcQll
+            // key v3 6Lcwo98UAAAAANVNdczUMhI87WPXkQsNV-X4lCoJ
+
             $query = $url.'?secret='.$key.'&response='.$_POST["g-recaptcha-response"].'&remopeid='.$_SERVER['REMOTE_ADDR'];
      
             $data = json_decode(file_get_contents($query));
 
             if($data->success==false){
-               // exit("captcha error");
+               exit("captcha error");
             }
         }
 

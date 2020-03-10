@@ -3,19 +3,11 @@
     use yii\bootstrap\ActiveForm;
 ?>
 
-<!-- <form method="POST">
-  <div class="form-group">
-    <label for="name">Category name</label>
-    <input type="text" class="form-control" id="name" name="name">
-  </div>
-  <button type="submit" class="btn btn-success">Add</button>
-</form> -->
-
 <?php $form = ActiveForm::begin(); ?>
 
     <?php echo $form->field($model,'name') ?>
 
-    <?php echo Html::submitButton('add',['class'=>'btn btn-primary']) ?>
+    <?php echo Html::submitButton('add',['class'=>'btn btn-success']) ?>
 
 <?php ActiveForm::end(); ?>
 
@@ -33,14 +25,10 @@
 <?php
     }
 
-    // $this->registerJs(
-    //     "$('.delete').on('click', function() { alert(this.name); });"
-    // );
-
     $this->registerJs('$(".delete").on("click", function(){
         var key = this.name;
      $.ajax({
-         url: "http://backend/category/delete?id="+key,
+         url: "http://backend:81/category/delete?id="+key,
          success: function(){
             window.location.href = "../category";
          }

@@ -7,7 +7,6 @@ use yii\db\ActiveRecord;
 
 class CategoryForm extends ActiveRecord
 {
-    public $name;
 
     public static function tableName(){
         return '{{categorysound}}';
@@ -16,7 +15,7 @@ class CategoryForm extends ActiveRecord
     public function rules()
     {
         return [
-            [['name','id'], 'required'],
+            [['name'], 'required'],
         ];
     }
 

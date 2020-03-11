@@ -4,6 +4,7 @@ namespace backend\controllers;
 use Yii;
 use yii\web\Controller;
 use backend\models\User;
+use backend\models\User3;
 
 /**
  * Category controller
@@ -31,11 +32,18 @@ class UserController extends Controller
 
     public function actionUsers(){
         $model = new User();
-        
-        // echo"<pre>";
-        // print_r($model->getListStatus());
-        // echo"</pre>";
-        // die;
+
+        if(Yii::$app->request->isPost){
+            $fromData = Yii::$app->request->post();
+
+            $model->statusid = $fromData["statusid"];
+
+            $model->username = $fromData["username"];
+
+            if($model->updateUser()){
+                Yii::$app->session->setFlash('success','User update complited!');
+            }
+        }
 
         return $this->render('users',[
             'users' => $model->getListUsers(),

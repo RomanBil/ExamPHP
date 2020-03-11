@@ -92,9 +92,8 @@ class SiteController extends Controller
             }
 
             $url = 'https://www.google.com/recaptcha/api/siteverify';
-            $key = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
-            // key v2 6LduSOAUAAAAANv4674bcbOyBe3P6wdbErUUcQll
-            // key v3 6Lcwo98UAAAAANVNdczUMhI87WPXkQsNV-X4lCoJ
+            $key = '6LduSOAUAAAAANv4674bcbOyBe3P6wdbErUUcQll';
+            
 
             $query = $url.'?secret='.$key.'&response='.$_POST["g-recaptcha-response"].'&remopeid='.$_SERVER['REMOTE_ADDR'];
      
@@ -180,7 +179,7 @@ class SiteController extends Controller
             }
 
             $url = 'https://www.google.com/recaptcha/api/siteverify';
-            $key = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
+            $key = '6LduSOAUAAAAANv4674bcbOyBe3P6wdbErUUcQll';
             
             $query = $url.'?secret='.$key.'&response='.$_POST["g-recaptcha-response"].'&remopeid='.$_SERVER['REMOTE_ADDR'];
         

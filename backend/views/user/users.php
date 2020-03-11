@@ -1,10 +1,14 @@
 <?php
     foreach($users as $user){    
 ?>
-        <p><b>Username: </b> <?= $user['username'] ?></p>
+    <form method="POST">
+        <input type="hidden" name="_csrf" value="<?=Yii::$app->request->getCsrfToken()?>" />
+
+        <label for="username"><b>Username: </b></label>
+        <input readonly style="border:none;outline: none;" type="text" name='username' class="username" value="<?= $user['username'] ?>"><br>
 
         <label for="status"><b>Status: </b></label>
-        <select class="status" name="status">
+        <select class="statusid" name="statusid">
             <?php
                 foreach($statuses as $status){   
                     if($status['id'] == $user['statusid']){ 
@@ -21,20 +25,9 @@
             ?>
         </select><br>
 
-        <button name="<?= $user['id'] ?>" class="btn btn-success">Save</button>
-
+        <button type="submit" class="btn btn-success">Update</button>
+    </form>
         <hr>
 <?php  
     }
-
-    $this->registerJs('$(".btn").on("click", function(){
-        var key = this.previousSibling.previousSibling.previousSibling.value;
-        var key2 = this.name;
-     $.ajax({
-         url: "http://backend/user/update?idstat="+key+"&id="+key2,
-         success: function(){
-            alert("update");
-         }
-     })
- });')
 ?>

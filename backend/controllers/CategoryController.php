@@ -44,7 +44,7 @@ class CategoryController extends \yii\web\Controller
             Yii::$app->session->setFlash('success','Deleted!');
         }
 
-        $this->redirect('category/index');
+        $this->redirect('/category/index');
         //return $this->render('delete');
     }
 

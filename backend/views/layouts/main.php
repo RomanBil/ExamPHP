@@ -41,6 +41,7 @@ AppAsset::register($this);
         $menuItems = [
             ['label' => 'Category', 'url' => ['/category/index']],
             ['label' => 'Sound', 'url' => ['/sound/index']],
+            ['label' => 'Complaint', 'url' => ['/complaint/index']],
             ['label' => 'Add User', 'url' => ['/user/index']],
             ['label' => 'Show User', 'url' => ['/user/users']],
         ];

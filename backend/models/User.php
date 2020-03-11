@@ -44,6 +44,11 @@ class User extends ActiveRecord
 
     }
 
+    public function updateUser(){
+        $sql = "update user set statusid = $this->statusid where username= '$this->username'";
+        return Yii::$app->db->createCommand($sql)->execute();
+    }
+
     public function getListRoles(){
         $sql = "SELECT * FROM roles";
         $result = Yii::$app->db->createCommand($sql)->queryAll();

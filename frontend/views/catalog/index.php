@@ -11,7 +11,7 @@
     <div>
         <p for="sound"><b>Name sound:</b> <?= $sound["name"] ?></p>
         <audio class="sound" src='<?= $sound["path"] ?>' controls></audio><br>
-        <a href="#" class="btn btn-success">Download</a>
+        <a download href="<?= $sound["path"] ?>" class="btn btn-success">Download</a>
         <a href="/catalog/complaint?soundid=<?= $sound["id"] ?>" class="btn btn-danger">Complaint</a>
     </div>
     <hr>

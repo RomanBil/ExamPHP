@@ -54,7 +54,8 @@ class CatalogController extends Controller
 
         if($model->load(Yii::$app->request->post())){
             $model->path = UploadedFile::getInstance($model, 'path');
-                if ($model->upload()) {
+            //print_r($model->path);die;
+                if (Yii::$app->params['maxFileSize'] >= $model->path->size && $model->upload()) {
                     Yii::$app->session->setFlash('success','Added!');
 
                     return $this->refresh();

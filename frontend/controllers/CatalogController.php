@@ -52,67 +52,44 @@ class CatalogController extends Controller
     public function actionUpload(){
         $model = new Catalog();
 
-        if(Yii::$app->request->isGet){
-            $fromData = Yii::$app->request->get();
+        if($model->load(Yii::$app->request->post())){
+            $model->path = UploadedFile::getInstance($model, 'path');
+                if ($model->upload()) {
+                    Yii::$app->session->setFlash('success','Added!');
 
-            $model->name = $fromData["name"];
-
-            $model->category = $fromData["category"];
-
-            // $upload_file=$fromData["sound"];
-            // $folder="frontend/sound/";
-            // move_uploaded_file($fromData["sound"], $folder.$fromData["sound"]);
-
-            // $model->path=$folder.$fromData["sound"];
-            
-
-            $_FILES["sound"]["name"]=$fromData["sound"];
-            $_FILES["sound"]["tmp_name"]=$fromData["sound"];
-
-            $upload_file=$_FILES["sound"]["name"];
-            $folder="frontend/sound/";
-            move_uploaded_file($_FILES["sound"]["tmp_name"], $folder.$upload_file);
-
-            $model->path=$folder.$upload_file;
-
-            if($model->validate() && $model->save()){
-                Yii::$app->session->setFlash('success','Sound add complited!');
-            }
+                    return $this->refresh();
+                }
         }
 
         return $this->render('upload',[
-            'model' => $model,
-            'categories' => $model->getListCategory()
+            'model' => $model
         ]);
     }
 
     public function actionComplaint(){
         $id = 0;
 
-        $model= new Complaint();
+        $model = new Complaint();
 
         if(Yii::$app->request->isGet){
             $fromData = Yii::$app->request->get();
 
-            $id=$fromData["id"];
+            $id=$fromData["soundid"];
         }
 
-        if(Yii::$app->request->isPost){
+        if($model->load(Yii::$app->request->post()) && $model->save()){
             $fromData = Yii::$app->request->post();
 
-            $model->description = $fromData["description"];
+            $id=$fromData["soundid"];
 
-            $model->soundid = $fromData["id"];
+            Yii::$app->session->setFlash('success','Added!');
 
-            $id=$fromData["id"];
-
-            if($model->validate() && $model->save()){
-                Yii::$app->session->setFlash('success','Complaint add complited!');
-            }
+            return $this->refresh();
         }
 
         return $this->render('complaint',[
-            'id' => $id
+            'model' => $model,
+            'soundid' => $id
         ]);
     }
 

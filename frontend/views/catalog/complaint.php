@@ -1,15 +1,18 @@
 <?php
-  if($model->getErrors()){
-    foreach($model->getErrors()['description'] as $error){
-        echo$error;
-    }
-    foreach($model->getErrors()['soundid'] as $error){
-      echo$error;
-    }
-  }
+    use yii\helpers\Html;
+    use yii\bootstrap\ActiveForm;
 ?>
 
-<form method="POST">
+<?php $form = ActiveForm::begin(); ?>
+    <?= $form->field($model, 'soundid')->label(false)->hiddenInput(['value' => $soundid]); ?>
+
+    <?php echo $form->field($model,'description') ?>
+
+    <?php echo Html::submitButton('add',['class'=>'btn btn-success']) ?>
+
+<?php ActiveForm::end(); ?>
+
+<!-- <form method="POST">
     <input type="hidden" value="$id">
     <div class="form-group">
         <label for="description">Reason</label>
@@ -17,4 +20,4 @@
     </div>
 
     <button class="btn btn-success" type="submit">Add</button>
-</form>
+</form> -->

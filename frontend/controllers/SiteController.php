@@ -90,7 +90,7 @@ class SiteController extends Controller
             }
 
             $url = 'https://www.google.com/recaptcha/api/siteverify';
-            $key = '6LduSOAUAAAAANv4674bcbOyBe3P6wdbErUUcQll';
+            $key = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
             // key v2 6LduSOAUAAAAANv4674bcbOyBe3P6wdbErUUcQll
             // key v3 6Lcwo98UAAAAANVNdczUMhI87WPXkQsNV-X4lCoJ
 
@@ -172,14 +172,14 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
-        if(Yii::$app->request->isPost){
+        if ($model->load(Yii::$app->request->post())) {
             if(!$_POST["g-recaptcha-response"]){
                 exit("recaptcha is empty");
             }
 
             $url = 'https://www.google.com/recaptcha/api/siteverify';
-            $key = '6Lcno98UAAAAANg7qgFUA007US_KzULNdzjJYJtz';
-            // key2 6Lcwo98UAAAAANVNdczUMhI87WPXkQsNV-X4lCoJ
+            $key = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
+            
             $query = $url.'?secret='.$key.'&response='.$_POST["g-recaptcha-response"].'&remopeid='.$_SERVER['REMOTE_ADDR'];
         
             $data = json_decode(file_get_contents($query));
@@ -188,19 +188,12 @@ class SiteController extends Controller
                 exit("captcha error");
             }
 
-            $fromData = Yii::$app->request->post();
-
-            $model->username = $fromData["username"];
-
-            $model->email = $fromData["email"];
-
-            $model->password = $fromData["password"];
-
-            if ($model->signup()) {
+            if($model->signup()){
                 Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
                 return $this->goHome();
             }
         }
+        
 
         return $this->render('signup', [
             'model' => $model,

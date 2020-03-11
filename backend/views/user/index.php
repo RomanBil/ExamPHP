@@ -30,7 +30,9 @@
 
     <?php echo $form->field($model,'username') ?>
 
-    <?php echo $form->field($model,'password_hash') ?>
+    <?php echo $form->field($model,'password')->passwordInput() ?>
+
+    <?php echo $form->field($model,'password2')->passwordInput() ?>
 
     <?php echo $form->field($model,'email') ?>
 

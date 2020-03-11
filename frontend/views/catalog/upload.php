@@ -1,39 +1,30 @@
 <?php
-  // if($model->getErrors()){
-  //   foreach($model->getErrors()['name'] as $error){
-  //       echo$error;
-  //   }
-  //   foreach($model->getErrors()['category'] as $error){
-  //     echo$error;
-  //   }
-  //   foreach($model->getErrors()['path'] as $error){
-  //     echo$error;
-  //   }
-  // }
-
-  print_r($_SESSION["advanced-frontend"]);
+    use yii\helpers\Html;
+    use yii\bootstrap\ActiveForm;
 ?>
 
-<form method="GET" enctype="multipart/form-data">
+<?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php echo $form->field($model,'name') ?>
+
+    <?php echo $form->field($model,'categoryId')->dropDownList([
+      $model->getListCategory()
+    ]); ?>
+
+    <?php echo $form->field($model,'path')->fileInput() ?>
+
+    <?php echo Html::submitButton('add',['class'=>'btn btn-success']) ?>
+
+<?php ActiveForm::end(); ?>
+
+<!-- <form method="GET" enctype="multipart/form-data">
   <div class="form-group">
     <label for="name">Sound name</label>
     <input type="text" class="form-control" id="name" name="name">
   </div>
-  <div class="form-group">
-    <label for="category">Catregory</label>
-    <select id="category" name="category">
-    <?php
-        foreach($categories as $category){    
-    ?>
-            <option value="<?= $category['id'] ?>"><?= $category["name"] ?></option>
-    <?php  
-        }
-    ?>
-    </select>
-  </div>
+  
   <div class="form-group">
     <label for="sound">Sound</label>
     <input type="file" id="sound" name="sound" accept="audio/*">
   </div>
   <input type="submit" class="btn btn-success" value="Add">
-</form>
+</form> -->

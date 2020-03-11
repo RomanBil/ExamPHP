@@ -22,8 +22,6 @@ class CategoryController extends \yii\web\Controller
             Yii::$app->session->setFlash('success','Added!');
 
             return $this->refresh();
-
-            //return $this->redirect('book/index');
         }
 
         return $this->render('index',[

@@ -2,43 +2,47 @@
 namespace backend\models;
 
 use Yii;
-use yii\base\Model;
 use yii\helpers\ArrayHelper;
 use yii\db\ActiveRecord;
+use backend\models\User2;
 
 class User extends ActiveRecord
 {
-    // public $id;
-    // public $username;
-    // public $password;
-    // public $password2;
-    // public $email;
-    // public $role;
-    // public $status;
-
-    public static function tableName(){
-        return '{{user}}';
-    }
+    public $username;
+    public $email;
+    public $password;
+    public $password2;
+    public $idrole;
+    public $statusid;
 
     public function rules()
     {
         return [
-            [['username','password_hash','email','idrole','statusid'], 'required'],
+            [['username','password','password2','email','idrole','statusid'], 'required'],
             [['email'],'email'],
+            ['password2', 'compare', 'compareAttribute' => 'password'],
         ];
     }
 
-    // public function save(){
-    //     $password_hash = Yii::$app->security->generatePasswordHash($this->password);
-    //     $auth_key = Yii::$app->security->generateRandomString();
-    //     $verification_token = Yii::$app->security->generateRandomString() . '_' . time();
+    public function index()
+    {
+        if (!$this->validate()) {
+            return null;
+        }
+        
+        $user = new User2();
+        $user->username = $this->username;
+        $user->email = $this->email;
+        $user->password_hash = Yii::$app->security->generatePasswordHash($this->password);
+        $user->auth_key=Yii::$app->security->generateRandomString();
+        $user->created_at=1583523345;
+        $user->updated_at=1583523392;
+        $user->idrole = $this->idrole;
+        $user->statusid = $this->statusid;
+        $user->verification_token = Yii::$app->security->generateRandomString() . '_' . time();
+        return $user->save();
 
-    //     $sql = "INSERT INTO user (id,username,password_hash,email,idrole,statusid,auth_key,created_at,updated_at,verification_token) 
-    //     VALUES(null,'$this->username','$password_hash','$this->email',$this->role,$this->status,
-    //     '$auth_key',1583523345,1583523392,'$verification_token')";
-
-    //     return Yii::$app->db->createCommand($sql)->execute();
-    // }
+    }
 
     public function getListRoles(){
         $sql = "SELECT * FROM roles";
@@ -52,6 +56,10 @@ class User extends ActiveRecord
         $result = Yii::$app->db->createCommand($sql)->queryAll();
 
         return ArrayHelper::map($result, 'id','name');
+    }
+    public function getListStatus2(){
+        $sql = "SELECT * FROM statususer";
+        return Yii::$app->db->createCommand($sql)->queryAll();
     }
 
     public function getListUsers(){

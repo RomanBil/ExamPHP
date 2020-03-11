@@ -18,15 +18,10 @@ class UserController extends Controller
     public function actionIndex()
     {
         $model = new User();
-
-        if(Yii::$app->request->isPost){
-            $fromData = Yii::$app->request->post();
-
-            $model->attributes = $fromData;
-
-            if($model->validate() && $model->save()){
-                Yii::$app->session->setFlash('success','User add complited!');
-            }
+        
+        if ($model->load(Yii::$app->request->post()) && $model->index()) {//&& $model->index()
+            Yii::$app->session->setFlash('success', 'Thank you for registration.');
+            return $this->goHome();
         }
 
         return $this->render('index',[
@@ -36,10 +31,15 @@ class UserController extends Controller
 
     public function actionUsers(){
         $model = new User();
+        
+        // echo"<pre>";
+        // print_r($model->getListStatus());
+        // echo"</pre>";
+        // die;
 
         return $this->render('users',[
             'users' => $model->getListUsers(),
-            'statuses' => $model->getListStatus()
+            'statuses' => $model->getListStatus2()
         ]);
     }
 

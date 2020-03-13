@@ -19,7 +19,18 @@ class CatalogController extends Controller
     {
         $model = new Catalog();
 
+        if($model->load(Yii::$app->request->post())){
+            //print_r(Yii::$app->request->post()['showOne']);die;
+            if(Yii::$app->request->post()['showOne']){
+                return $this->render('index',[
+                    'model' => $model,
+                    'sounds' => $model->getSortListSound($model->categoryId)
+                ]);
+            }
+        }
+
         return $this->render('index',[
+            'model' => $model,
             'sounds' => $model->getListSound()
         ]);
     }
@@ -52,11 +63,19 @@ class CatalogController extends Controller
     public function actionUpload(){
         $model = new Catalog();
 
+        //print_r($model->getListCategory());
+
         if($model->load(Yii::$app->request->post())){
             $model->path = UploadedFile::getInstance($model, 'path');
             //print_r($model->path);die;
-                if (Yii::$app->params['maxFileSize'] >= $model->path->size && $model->upload()) {
-                    Yii::$app->session->setFlash('success','Added!');
+                if (Yii::$app->params['maxFileSize'] >= $model->path->size) {
+                    if($model->upload()){
+                        Yii::$app->session->setFlash('success','Added!');
+                        return $this->refresh();
+                    }
+                }
+                else{
+                    Yii::$app->session->setFlash('error','File size too large');
 
                     return $this->refresh();
                 }

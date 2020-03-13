@@ -1,42 +1,36 @@
 <?php
-    if($model->getErrors()){
-        foreach($model->getErrors()['categoryid'] as $error){
-            echo$error;
-        }
-    }
+
+use yii\helpers\Html;
+use yii\grid\GridView;
+
+/* @var $this yii\web\View */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Sound';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<?php
-    foreach($sounds as $sound){
-?>
-    <form method="POST">
-        <div class="form-group">
-            <input type="hidden" name="id" value ="<?= $sound["id"] ?>">
-            <p><b>Name sound:</b> <?= $sound["name"] ?></p>
+<div class="sound2-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a('Create Sound', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'id',
+            'path',
+            'name',
+            'categoryId',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
 
 
-            <label for="category">Category name</label>
-            <select id="category" name="categoryid">
-        <?php
-            foreach($categories as $category){
-                if($category['id']==$sound["categoryId"]){
-    ?>
-                    <option selected value="<?= $category['id'] ?>"><?= $category["name"] ?></option>
-    <?php
-                }
-                else{
-        ?>
-            <option value="<?= $category['id'] ?>"><?= $category["name"] ?></option>
-        <?php
-                }
-            }
-        ?>
-            </select>
-
-        </div>
-        <button type="submit" class="btn btn-success">Update</button>
-    </form>
-    <hr>
-<?php
-    }
-?>
+</div>

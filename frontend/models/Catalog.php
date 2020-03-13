@@ -7,14 +7,6 @@ use yii\helpers\ArrayHelper;
 
 class Catalog extends ActiveRecord
 {
-    // public $name;
-
-    // public $category;
-
-    // public $path;
-
-    
-
     public static function tableName(){
         return '{{sound}}';
     }
@@ -38,15 +30,13 @@ class Catalog extends ActiveRecord
         }
     }
 
-    // public function save(){
-    //     $sql = "INSERT INTO sound (id,name,path,categoryId) 
-    //     VALUES(null,'$this->name','$this->path',$this->category)";
-        
-    //     return Yii::$app->db->createCommand($sql)->execute();
-    // }
-
     public function getListSound(){
-        $sql = "SELECT * FROM sound ORDER BY categoryid";
+        $sql = "SELECT * FROM sound";
+        return Yii::$app->db->createCommand($sql)->queryAll();
+    }
+
+    public function getSortListSound($categoryId){
+        $sql = "SELECT * FROM sound where categoryId=$categoryId";
         return Yii::$app->db->createCommand($sql)->queryAll();
     }
 

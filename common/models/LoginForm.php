@@ -58,6 +58,7 @@ class LoginForm extends Model
     {
         $this->_user = User::findByUsername($this->username);
         if ($this->_user['statusid'] == 1 && $this->validate()) {
+            $this->idrole=$this->_user['idrole'];
             return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
         }
         

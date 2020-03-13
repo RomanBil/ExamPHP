@@ -71,12 +71,26 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            //return $this->goHome();
+            //$this->redirect('/category/index');
         }
 
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login() && $model->idrole==2) {
-            return $this->goBack();
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->login()){
+                if($model->idrole==1){
+                $this->redirect('/category/index');
+                }
+                else{
+                    Yii::$app->user->logout();
+                    Yii::$app->session->setFlash('error','Not enough rights');
+                    return $this->refresh();
+                }
+            }
+            else{
+                Yii::$app->session->setFlash('error','Incorrect login and / or password');
+                return $this->refresh();
+            }
         } 
 
         $model->password = '';

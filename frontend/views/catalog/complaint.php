@@ -6,7 +6,7 @@
 <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'soundid')->label(false)->hiddenInput(['value' => $soundid]); ?>
 
-    <?php echo $form->field($model,'description') ?>
+    <?php echo $form->field($model,'description')->textarea(['rows' => 2, 'cols' => 5]) ?>
 
     <?php echo Html::submitButton('add',['class'=>'btn btn-success']) ?>
 

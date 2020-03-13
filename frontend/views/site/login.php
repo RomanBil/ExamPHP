@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     Need new verification email? <?= Html::a('Resend', ['site/resend-verification-email']) ?>
                 </div>
 
+                <p style="color: red"><?= $errors ?></p>
                 <div class="g-recaptcha" data-sitekey="6LduSOAUAAAAANpVz1eS5M-dcmfkIHzqgU3Ufg4F"></div>
 
                 <div class="form-group">

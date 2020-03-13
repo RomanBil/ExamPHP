@@ -8,7 +8,7 @@
         <input readonly style="border:none;outline: none;" type="text" name='username' class="username" value="<?= $user['username'] ?>"><br>
 
         <label for="status"><b>Status: </b></label>
-        <select class="statusid" name="statusid">
+        <select class="statusid btn btn-primary" name="statusid">
             <?php
                 foreach($statuses as $status){   
                     if($status['id'] == $user['statusid']){ 
@@ -23,7 +23,7 @@
                     }
                 }
             ?>
-        </select><br>
+        </select><br><br>
 
         <button type="submit" class="btn btn-success">Update</button>
     </form>

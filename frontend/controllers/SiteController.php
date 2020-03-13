@@ -86,9 +86,16 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $model = new LoginForm();
+
         if(Yii::$app->request->isPost){
             if(!$_POST["g-recaptcha-response"]){
-               exit("recaptcha is empty");
+               //exit("recaptcha is empty");
+               return $this->render('login', [
+                'model' => $model,
+                //'errors' => 'recaptcha is empty',
+                'errors' => "Click I'm not a robot",
+            ]);
             }
 
             $url = 'https://www.google.com/recaptcha/api/siteverify';
@@ -100,22 +107,33 @@ class SiteController extends Controller
             $data = json_decode(file_get_contents($query));
 
             if($data->success==false){
-               exit("captcha error");
+               //exit("captcha error");
+               return $this->render('login', [
+                    'model' => $model,
+                    //'errors' => 'captcha error',
+                    'errors' => "Click I'm not a robot",
+                ]);
             }
         }
 
         if (!Yii::$app->user->isGuest) {
             //return $this->goHome();
+            $this->redirect('/catalog/index');
         }
 
-        $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            //return $this->goBack();
+            $this->redirect('/catalog/index');
         } else {
+            if($model->load(Yii::$app->request->post())){
+                Yii::$app->session->setFlash('error','Incorrect login and / or password');
+            }
+            
             $model->password = '';
 
             return $this->render('login', [
                 'model' => $model,
+                'errors' => '',
             ]);
         }
     }
